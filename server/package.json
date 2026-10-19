@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "This is the movie booking website",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Akash Maurya",
+  "license": "ISC",
+  "dependencies": {
+    "@clerk/express": "^2.1.80",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "inngest": "^4.24.0",
+    "mongoose": "^9.11.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
