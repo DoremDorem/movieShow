@@ -7,7 +7,7 @@ import { serve } from "inngest/express";
 import { functions, inngest } from "./inngest/index.js";
 const app = express();
 await connectDb();
-app.use(cors({origin:process.env.FRONTEND_URL}));
+app.use(cors());
 app.use(express.json());
 // Clerk authentication middleware
 app.use(clerkMiddleware());
