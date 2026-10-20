@@ -19,6 +19,10 @@ app.get("/", (req, res) => {
   res.send("API is working");
 });
 
+console.log(
+  "INNGEST_SIGNING_KEY loaded:",
+  Boolean(process.env.INNGEST_SIGNING_KEY)
+);
 app.use("/api/inngest", serve({ client: inngest, functions }));
 
 
