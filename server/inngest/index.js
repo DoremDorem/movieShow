@@ -2,7 +2,12 @@ import { eventType, Inngest } from "inngest";
 import { User } from "../models/userModel.js";
 
 // Create a client to send and receive events
-export const inngest = new Inngest({ id: "movie-ticket-booking",  signingKey: process.env.INNGEST_SIGNING_KEY });
+console.log(
+  "Inngest client key available:",
+  Boolean(process.env.INNGEST_SIGNING_KEY)
+);
+
+export const inngest = new Inngest({ id: "movie-ticket-booking",signingKey: process.env.INNGEST_SIGNING_KEY });
 
 //inngest function to save user data to database
 const syncUserCreation=inngest.createFunction(
@@ -13,8 +18,8 @@ const syncUserCreation=inngest.createFunction(
     async({event})=>{
       const {id,first_name,last_name,email_addresses,image_url}=event.data;
       const userData={
-        _id:id,
-        email:email_addresses[0].email_addresses,
+        clerk_id:id,
+        email: email_addresses?.[0]?.email_address,
         name:first_name+' '+last_name,
         image:image_url
       }
