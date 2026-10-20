@@ -48,6 +48,7 @@ const syncUserCreation = inngest.createFunction(
     }
   }
 );
+https://movie-show-g1jo.vercel.app/movie
 
 const syncUserDeleted=inngest.createFunction(
   {

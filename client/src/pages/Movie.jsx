@@ -6,7 +6,7 @@ import Title from '../components/Title'
 const Movie = () => {
   return (
     <>
-      <div className='grid lg:grid-cols-4 sm:grid-cols-2 py-4 px-15 gap-4 mt-35'>
+      <div className='grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 py-4 px-15 gap-4 mt-35'>
        {
         movieData.map((movie)=>(
             <div key={movie._id}>
