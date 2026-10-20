@@ -9,23 +9,45 @@ console.log(
 
 export const inngest = new Inngest({ id: "movie-ticket-booking",signingKey: process.env.INNGEST_SIGNING_KEY });
 
-//inngest function to save user data to database
-const syncUserCreation=inngest.createFunction(
-    {
-    id:"sync-user-from-clerk",
-    triggers: [{ event: "clerk/user.created" }]
-    },
-    async({event})=>{
-      const {id,first_name,last_name,email_addresses,image_url}=event.data;
-      const userData={
-        clerk_id:id,
+const syncUserCreation = inngest.createFunction(
+  {
+    id: "sync-user-from-clerk",
+    triggers: [{ event: "clerk/user.created" }],
+  },
+  async ({ event }) => {
+    try {
+      const {
+        id,
+        first_name,
+        last_name,
+        email_addresses,
+        image_url,
+      } = event.data;
+
+      const userData = {
+        clerk_id: id,
         email: email_addresses?.[0]?.email_address,
-        name:first_name+' '+last_name,
-        image:image_url
-      }
-      await User.create(userData);
+        name: `${first_name || ""} ${last_name || ""}`.trim(),
+        image: image_url || "",
+      };
+
+      console.log("User data:", userData);
+
+      const user = await User.findOneAndUpdate(
+        { clerk_id: id },
+        { $set: userData },
+        { upsert: true, new: true, runValidators: true }
+      );
+
+      console.log("Saved MongoDB user:", user);
+
+      return { success: true };
+    } catch (error) {
+      console.error("MongoDB user save failed:", error);
+      throw error;
     }
-)
+  }
+);
 
 const syncUserDeleted=inngest.createFunction(
   {
