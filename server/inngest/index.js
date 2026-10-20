@@ -7,7 +7,7 @@ console.log(
   Boolean(process.env.INNGEST_SIGNING_KEY)
 );
 
-export const inngest = new Inngest({ id: "movie-ticket-booking",signingKey: process.env.INNGEST_SIGNING_KEY });
+export const inngest = new Inngest({ id: "movie-ticket-booking" });
 
 const syncUserCreation = inngest.createFunction(
   {
